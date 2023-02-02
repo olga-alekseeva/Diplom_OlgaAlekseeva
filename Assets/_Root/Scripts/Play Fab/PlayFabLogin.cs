@@ -9,8 +9,7 @@ public class PlayFabLogin : MonoBehaviour
 
 {
     [SerializeField] public Button loginButton;
-    [SerializeField] public Text failAnswer;
-    [SerializeField] public Text successAnswer;
+    [SerializeField] public Text answer;
    
     public void Start()
     {
@@ -20,15 +19,15 @@ public class PlayFabLogin : MonoBehaviour
     private void OnLoginSuccess(LoginResult result)
     {
         Debug.Log("Congratulations, you made successfulAPI call!");
-        successAnswer.text = "Congratulations, you made successfulAPI call!";
-        successAnswer.color = Color.green;
+        answer.text = "Congratulations, you made successfulAPI call!";
+        answer.color = Color.green;
     }
     private void OnLoginFailure(PlayFabError error)
     {
         var errorMessage = error.GenerateErrorReport();
         Debug.LogError($"Something went wrong:{errorMessage}");
-        failAnswer.text = errorMessage;
-        failAnswer.color = Color.red;
+        answer.text = $"Something went wrong:{errorMessage}";
+        answer.color = Color.red;
     }
 
     private void Login()
