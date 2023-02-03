@@ -7,8 +7,10 @@ namespace Photon
 
     public class Launcher : MonoBehaviourPunCallbacks
     {
-        [SerializeField] public Button photonLogInOutButton;
-        [SerializeField] public Text answer;
+        [SerializeField] public Button photonLogInButton;
+        [SerializeField] public Button photonLogOutButton;
+        [SerializeField] public Text logInAnswer;
+        [SerializeField] public Text logOutAnswer;
         string gameVersion = "1";
         void Awake()
         {
@@ -16,15 +18,18 @@ namespace Photon
         }
         void Start()
         {
-            DisconnectedSign();
-            photonLogInOutButton.onClick.AddListener(() => Connect());
-            if (PhotonNetwork.IsConnected)
-            {
-                photonLogInOutButton.onClick.AddListener(() => Disconnect());
-            }
+            
+           
+                photonLogInButton.onClick.AddListener(() => Connect());
+          
+                photonLogOutButton.onClick.AddListener(() => Disconnect());
+            
         }
         public void Connect()
         {
+            if(PhotonNetwork.IsConnected == false)
+            {
+
             if (PhotonNetwork.IsConnected)
             {
                 PhotonNetwork.JoinRandomRoom();
@@ -34,29 +39,46 @@ namespace Photon
                 PhotonNetwork.ConnectUsingSettings();
                 PhotonNetwork.GameVersion = gameVersion;
             }
+                ConnectedSign();
+            }
+            else
+            {
+                Debug.Log("You have already been connected");
+            }
 
         }
         public void Disconnect()
         {
-            DisconnectedSign();
-            PhotonNetwork.Disconnect();
-
+            if (PhotonNetwork.IsConnected)
+            {
+                PhotonNetwork.Disconnect();
+                Debug.Log("out");
+                DisconnectedSign();
+            }
+            else
+            {
+                Debug.Log("try to connect first");
+            }
 
         }
         public override void OnConnectedToMaster()
         {
             Debug.Log("OnConnectedToMaster() was called byPUN");
-            ConnectedSign();
         }
         public void ConnectedSign()
         {
-            answer.text = "connected";
-            answer.color = Color.green;
+            if (PhotonNetwork.IsConnected)
+            {
+                logInAnswer.text = "connected";
+                logInAnswer.color = Color.green;
+            }
         }
         public void DisconnectedSign()
         {
-            answer.text = "Disconnect";
-            answer.color = Color.red;
+            
+                logOutAnswer.text = "Disconnect";
+                logOutAnswer.color = Color.red;
+            
         }
     }
 }
