@@ -2,69 +2,61 @@ using Photon.Pun;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class Launcher : MonoBehaviourPunCallbacks
+namespace Photon
 {
-    [SerializeField] public Button photonLogInOutButton;
-    [SerializeField] public Text buttonLabel;
-     public Text nameOfConnectiomButton;
 
-    /// <summary> /// This client's version number.
-    /// Users are separated from each other by gameVersion (which allows you to make breaking changes).
-    /// </summary> 
-    string gameVersion = "1";
-    /// <summary> 
-    /// MonoBehaviour method called on GameObject by Unity during early initialization phase. 
-    /// </summary>
-    void Awake()
+    public class Launcher : MonoBehaviourPunCallbacks
     {
-        // #Critical // this makes sure we can use PhotonNetwork.LoadLevel() on the master client
-        // and all clients in the same room sync their level automatically
-        // PhotonNetwork.AutomaticallySyncScene = true;
-    }
-    ///<summary> 
-    //////MonoBehaviour method called on GameObject byUnity during initialization phase. 
-    //////</summary> 
-    void Start()
-    {
-        photonLogInOutButton.onClick.AddListener(() => Connect());
-        if (PhotonNetwork.IsConnected)
+        [SerializeField] public Button photonLogInOutButton;
+        [SerializeField] public Text answer;
+        string gameVersion = "1";
+        void Awake()
         {
-            photonLogInOutButton.onClick.AddListener(() => Disconnect());
+            PhotonNetwork.AutomaticallySyncScene = true;
         }
-    }
-    ///<summary> 
-    ///Start the connection process. 
-    ///- If already connected, we attempt joining arandom room 
-    ///- if not yet connected, Connect this applicationinstance to Photon Cloud Network 
-    ///</summary> 
-    public void Connect()
-    {
-        // we check if we are connected or not, we joinif we are , else we initiate the connection to the server.
-        if (PhotonNetwork.IsConnected)
+        void Start()
         {
-            // #Critical we need at this point to attemptjoining a Random Room.
-            // If it fails, we'll get notified in OnJoinRandomFailed() and we'll create one.
-            PhotonNetwork.JoinRandomRoom();
+            DisconnectedSign();
+            photonLogInOutButton.onClick.AddListener(() => Connect());
+            if (PhotonNetwork.IsConnected)
+            {
+                photonLogInOutButton.onClick.AddListener(() => Disconnect());
+            }
         }
-        else
+        public void Connect()
         {
-            // #Critical, we must first and foremostconnect to Photon Online Server.
-            PhotonNetwork.ConnectUsingSettings();
-            PhotonNetwork.GameVersion = gameVersion;
-        }
+            if (PhotonNetwork.IsConnected)
+            {
+                PhotonNetwork.JoinRandomRoom();
+            }
+            else
+            {
+                PhotonNetwork.ConnectUsingSettings();
+                PhotonNetwork.GameVersion = gameVersion;
+            }
 
-    }
-    public void Disconnect()
-    {
-        if (PhotonNetwork.IsConnected)
+        }
+        public void Disconnect()
         {
+            DisconnectedSign();
             PhotonNetwork.Disconnect();
-        }
 
-    }
-    public override void OnConnectedToMaster()
-    {
-        Debug.Log("OnConnectedToMaster() was called byPUN");
+
+        }
+        public override void OnConnectedToMaster()
+        {
+            Debug.Log("OnConnectedToMaster() was called byPUN");
+            ConnectedSign();
+        }
+        public void ConnectedSign()
+        {
+            answer.text = "connected";
+            answer.color = Color.green;
+        }
+        public void DisconnectedSign()
+        {
+            answer.text = "Disconnect";
+            answer.color = Color.red;
+        }
     }
 }
