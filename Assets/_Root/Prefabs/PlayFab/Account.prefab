@@ -116,9 +116,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _signInButton: {fileID: 5254828022395683599}
   _createAccountButton: {fileID: 6551089969889283466}
-  _enterInGameCanvas: {fileID: 0}
+  _enterInGameCanvas: {fileID: 2459791469000903295, guid: 1fcc3a80c2a05f84aa3cc741a237f1f9, type: 3}
   _createAccountCanvas: {fileID: 3570814973717308527, guid: 307196cb3e3a25a4ab7e34b4669af23f, type: 3}
-  _signInCanvas: {fileID: 0}
+  _signInCanvas: {fileID: 820987461841204038, guid: 04e63413048d47541b3a551e747e4b9f, type: 3}
 --- !u!1 &452122926039738145
 GameObject:
   m_ObjectHideFlags: 0

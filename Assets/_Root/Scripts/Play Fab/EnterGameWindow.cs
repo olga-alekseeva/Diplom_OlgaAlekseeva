@@ -10,6 +10,7 @@ public class EnterGameWindow : MonoBehaviour
     [SerializeField] private Canvas _signInCanvas;
     private void Start()
     {
+        _enterInGameCanvas.enabled = true;
         _signInButton.onClick.AddListener(OpenSignInWindow);
         _createAccountButton.onClick.AddListener(OpenCreateAccountWindow);
 
@@ -17,6 +18,7 @@ public class EnterGameWindow : MonoBehaviour
 
     private void OpenSignInWindow()
     {
+        _enterInGameCanvas.enabled = false;
         _signInCanvas.enabled = true;
         _enterInGameCanvas.enabled = false;
     }
@@ -24,5 +26,7 @@ public class EnterGameWindow : MonoBehaviour
     {
         _createAccountCanvas.enabled= true;
         _enterInGameCanvas.enabled= false;
+        _enterInGameCanvas.enabled = false;
+
     }
 }
