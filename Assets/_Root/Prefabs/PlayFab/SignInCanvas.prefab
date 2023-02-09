@@ -116,6 +116,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _usernameField: {fileID: 9122817794022822839}
   _passwordField: {fileID: 9122817792577687642}
+  _loadingCanvas: {fileID: 0}
+  _loadingText: {fileID: 0}
   _signInButton: {fileID: 9122817793911558515}
 --- !u!1001 &6930332979657948227
 PrefabInstance:

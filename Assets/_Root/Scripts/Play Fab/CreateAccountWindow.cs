@@ -16,7 +16,6 @@ public class CreateAccountWindow : AccountDataWindowBase
         base.SubscriptionsElementsUi();
         _mailField.onValueChanged.AddListener(UpdateMail);
         _createAccountButton.onClick.AddListener(CreateAccount);
-
     }
 
     private void CreateAccount()
@@ -29,6 +28,7 @@ public class CreateAccountWindow : AccountDataWindowBase
         }, result =>
         {
             Debug.Log($"Success: {_username}");
+            StartCoroutine(LoadSceneCor());
         }, error =>
         {
             Debug.LogError($"Fail: {error.ErrorMessage}");

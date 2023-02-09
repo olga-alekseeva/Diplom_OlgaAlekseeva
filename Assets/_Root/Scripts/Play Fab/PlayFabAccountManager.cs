@@ -2,9 +2,10 @@ using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 internal sealed class PlayFabAccountManager : MonoBehaviour
 {
-    [SerializeField] private Text _titleLabel;
+    [SerializeField] private TMP_Text _titleLabel;
     private void Start()
     {
         PlayFabClientAPI.GetAccountInfo(new GetAccountInfoRequest(),
@@ -12,7 +13,7 @@ internal sealed class PlayFabAccountManager : MonoBehaviour
     }
     private void OnGetAccountSuccess(GetAccountInfoResult result)
     {
-        _titleLabel.text = $"Welcome back, Player ID {result.AccountInfo.PlayFabId}";
+        _titleLabel.text = $"Welcome back, Player ID {result.AccountInfo.PlayFabId}, Player accout {result.AccountInfo.Username}";
     }
     private void OnFailure(PlayFabError error)
     {

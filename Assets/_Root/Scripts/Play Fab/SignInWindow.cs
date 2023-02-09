@@ -5,13 +5,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using PlayFab;
 using PlayFab.ClientModels;
+using TMPro;
 
 
 public class SignInWindow : AccountDataWindowBase
 {
     [SerializeField] private Button _signInButton;
-    private EnterGameWindow _enterGameWindow;
-
     protected override void SubscriptionsElementsUi()
     {
         base.SubscriptionsElementsUi();
@@ -25,7 +24,9 @@ public class SignInWindow : AccountDataWindowBase
             Password = _password
         }, result =>
         {
+
             Debug.Log($"Success: {_username}");
+            StartCoroutine(LoadSceneCor());
         }, error =>
         {
             Debug.LogError($"Fail: {error.ErrorMessage}");
