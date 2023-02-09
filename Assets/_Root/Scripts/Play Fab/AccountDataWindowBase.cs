@@ -16,7 +16,9 @@ public class AccountDataWindowBase : MonoBehaviour
     private void Start()
     {
         SubscriptionsElementsUi();
+
     }
+   
 
     protected virtual void SubscriptionsElementsUi()
     {

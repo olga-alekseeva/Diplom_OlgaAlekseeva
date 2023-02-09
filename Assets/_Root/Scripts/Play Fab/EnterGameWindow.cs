@@ -1,19 +1,19 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnterGameWindow : MonoBehaviour
+internal sealed class EnterGameWindow : MonoBehaviour
 {
-    [SerializeField] private Button _signInButton;
-    [SerializeField] private Button _createAccountButton;
-    [SerializeField] private Canvas _enterInGameCanvas;
-    [SerializeField] private Canvas _createAccountCanvas;
-    [SerializeField] private Canvas _signInCanvas;
+    [SerializeField] public Button _signInButton;
+    [SerializeField] public Button _createAccountButton;
+    [SerializeField] public Canvas _enterInGameCanvas;
+    [SerializeField] public Canvas _createAccountCanvas;
+    [SerializeField] public Canvas _signInCanvas;
     private void Start()
     {
-        _enterInGameCanvas.enabled = true;
+        DefaultState();
         _signInButton.onClick.AddListener(OpenSignInWindow);
         _createAccountButton.onClick.AddListener(OpenCreateAccountWindow);
-
     }
 
     private void OpenSignInWindow()
@@ -28,5 +28,11 @@ public class EnterGameWindow : MonoBehaviour
         _enterInGameCanvas.enabled= false;
         _enterInGameCanvas.enabled = false;
 
+    }
+    private void DefaultState()
+    {
+        _enterInGameCanvas.enabled = true;
+        _createAccountCanvas.enabled = false;
+        _signInCanvas.enabled = false;
     }
 }

@@ -2,7 +2,7 @@ using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine;
 using UnityEngine.UI;
-public class PlayFabAccountManager : MonoBehaviour
+internal sealed class PlayFabAccountManager : MonoBehaviour
 {
     [SerializeField] private Text _titleLabel;
     private void Start()

@@ -9,12 +9,14 @@ public class CreateAccountWindow : AccountDataWindowBase
     [SerializeField] private TMP_InputField _mailField;
 
     [SerializeField] private Button _createAccountButton;
+
     private string _mail;
     protected override void SubscriptionsElementsUi()
     {
         base.SubscriptionsElementsUi();
         _mailField.onValueChanged.AddListener(UpdateMail);
         _createAccountButton.onClick.AddListener(CreateAccount);
+
     }
 
     private void CreateAccount()
