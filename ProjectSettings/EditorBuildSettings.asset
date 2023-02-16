@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Root/Scenes/PlayFab/PlayFab.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/_Root/Scenes/Photon/ConnectToServer.unity
+    guid: f8c838b99e56b2047aa5ec9f280a4536
   - enabled: 1
-    path: Assets/_Root/Scenes/Game.unity
-    guid: e14f6b64be4c6014883dfcecc6491d50
+    path: Assets/_Root/Scenes/Photon/Lobby.unity
+    guid: d1975f94761dd1e44a10acadc6df8dad
   m_configObjects: {}
