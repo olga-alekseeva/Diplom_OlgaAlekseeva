@@ -132,6 +132,7 @@ public class ConnectAndJoinRandomLb : MonoBehaviour, IConnectionCallbacks, IMatc
 
     public void OnRoomListUpdate(List<RoomInfo> roomList)
     {
+       // roomList.First().
     }
 
 
