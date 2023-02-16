@@ -20,6 +20,7 @@ public class CreateAccountWindow : AccountDataWindowBase
 
     private void CreateAccount()
     {
+        StartCoroutine(LoadSceneCor());
         PlayFabClientAPI.RegisterPlayFabUser(new RegisterPlayFabUserRequest
         {
             Username = _username,
@@ -28,7 +29,6 @@ public class CreateAccountWindow : AccountDataWindowBase
         }, result =>
         {
             Debug.Log($"Success: {_username}");
-            StartCoroutine(LoadSceneCor());
         }, error =>
         {
             Debug.LogError($"Fail: {error.ErrorMessage}");
