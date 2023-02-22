@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -15,13 +16,18 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject _roomPanel;
     [SerializeField] private TMP_Text _roomName;
     [SerializeField] private Button _createRoomButton;
+    [SerializeField] private Button _leaveRoomButton;
     [SerializeField] private RoomItem _roomItem;
     [SerializeField] private Transform _contentObject;
     List<RoomItem> roomItemsList = new List<RoomItem>();
+    public float timeBetweenUpdates = 1.5f;
+    float _nextUpdateTime;
 
     private void Start()
     {
         _createRoomButton.onClick.AddListener(OnClickCreate);
+        _leaveRoomButton.onClick.AddListener(OnClickLeaveRoom);
+
         PhotonNetwork.JoinLobby();
     }
 
@@ -29,7 +35,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         if (_roomInputField.text.Length >= 1)
         {
-            PhotonNetwork.CreateRoom(_roomInputField.text, new RoomOptions() { MaxPlayers = 5 });
+            PhotonNetwork.CreateRoom(_roomInputField.text, new RoomOptions() { MaxPlayers = 10 });
         }
     }
     public override void OnJoinedRoom()
@@ -40,18 +46,24 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
+        if (Time.time >= _nextUpdateTime)
+        {
         UpdateRoomList(roomList);
+            _nextUpdateTime = Time.time + timeBetweenUpdates;
+
+        }
+
     }
 
     private void UpdateRoomList(List<RoomInfo> roomList)
     {
-        foreach(RoomItem item in roomItemsList)
+        foreach (RoomItem item in roomItemsList)
         {
             Destroy(item.gameObject);
         }
         roomItemsList.Clear();
 
-        foreach(RoomInfo room in roomList)
+        foreach (RoomInfo room in roomList)
         {
             RoomItem newRoom = Instantiate(_roomItem, _contentObject);
             newRoom.SetRoomName(room.Name);
@@ -62,4 +74,19 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.JoinRoom(roomName);
     }
+    public void OnClickLeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+
+    }
+    public override void OnLeftRoom()
+    {
+        _lobbyPanel.SetActive(true);
+        _roomPanel.SetActive(false);
+    }
+    public override void OnConnectedToMaster()
+    {
+        PhotonNetwork.JoinLobby();
+    }
+
 }
