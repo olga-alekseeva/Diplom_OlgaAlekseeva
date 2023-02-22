@@ -1,14 +1,16 @@
 using PlayFab;
 using PlayFab.ClientModels;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayFabLogin : MonoBehaviour
 
 {
-    [SerializeField] private Text _createErrorLabel;
-    [SerializeField] private Text _signInErrorLabel;
+    [SerializeField] private TMP_Text _createErrorLabel;
+    [SerializeField] private TMP_Text _signInErrorLabel;
     private string _mail;
     private string _pass;
     private string _username;
@@ -76,6 +78,35 @@ public class PlayFabLogin : MonoBehaviour
     private void OnSignInSuccess(LoginResult result)
     {
         Debug.Log($"Sign In Success: {_username}");
+        SetUserData(result.PlayFabId);
+    }
+
+    private void SetUserData(string playFabId)
+    {
+        PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest
+        {
+            Data = new Dictionary<string, string>
+            {
+                {"_time_receive_daily_reward", DateTime.UtcNow.ToString()}
+            }
+        },
+        result =>
+        {
+            Debug.Log("SetUserData");
+            GetUserData(playFabId, "_time_receive_daily_reward");
+        }, OnFailure);
+    }
+
+    private void GetUserData(string playFabId, string keyData)
+    {
+        PlayFabClientAPI.GetUserData(new GetUserDataRequest
+        {
+            PlayFabId = playFabId
+        }, result =>
+        {
+            if (result.Data.ContainsKey(keyData))
+                Debug.Log($"{keyData}: {result.Data[keyData].Value}");
+        }, OnFailure);
     }
 
     private void OnFailure(PlayFabError error)
