@@ -77,6 +77,7 @@ public class PlayFabLogin : MonoBehaviour
     {
         Debug.Log($"Sign In Success: {_username}");
     }
+
     private void OnFailure(PlayFabError error)
     {
         var errorMessage = error.GenerateErrorReport();
