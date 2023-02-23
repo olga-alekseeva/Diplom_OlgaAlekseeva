@@ -40,9 +40,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom()
     {
-        _lobbyPanel.SetActive(false);
-        _roomPanel.SetActive(true);
-        _roomName.text = "Room Name: " + PhotonNetwork.CurrentRoom.Name;
+        SceneManager.LoadScene("Game");
+        //_lobbyPanel.SetActive(false);
+        //_roomPanel.SetActive(true);
+        //_roomName.text = "Room Name: " + PhotonNetwork.CurrentRoom.Name;
     }
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
