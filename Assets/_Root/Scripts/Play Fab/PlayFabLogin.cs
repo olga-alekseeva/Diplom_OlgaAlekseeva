@@ -2,85 +2,78 @@ using PlayFab;
 using PlayFab.ClientModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 public class PlayFabLogin : MonoBehaviour
 
 {
-    [SerializeField] private TMP_Text _createErrorLabel;
-    [SerializeField] private TMP_Text _signInErrorLabel;
-    private string _mail;
-    private string _pass;
-    private string _username;
     private const string AuthGuidKey = "authorization-guid";
     public void Start()
     {
-        // Here we need to check whether TitleId property is configured in settings or not
         if (string.IsNullOrEmpty(PlayFabSettings.staticSettings.TitleId))
-        {
-            /*
-            * If not we need to assign it to the appropriate variable manually
-            * Otherwise we can just remove this if statement at all
-            */
             PlayFabSettings.staticSettings.TitleId = " A823B";
-        }
         var needCreation = PlayerPrefs.HasKey(AuthGuidKey);
         var id = PlayerPrefs.GetString(AuthGuidKey, Guid.NewGuid().ToString());
-        PlayFabClientAPI.LoginWithCustomID(new LoginWithCustomIDRequest()
+        var request = new LoginWithCustomIDRequest
         {
             CustomId = id,
             CreateAccount = !needCreation
-        }, success => { PlayerPrefs.SetString(AuthGuidKey, id); }, OnFailure);
+        };
+        PlayFabClientAPI.LoginWithCustomID(request, result =>
+        {
+            PlayerPrefs.SetString(AuthGuidKey, id);
+            OnSignInSuccess(result);
+        }, OnFailure);
+
     }
 
-    public void UpdateUsername(string username)
-    {
-        _username = username;
-    }
-    public void UpdateEmail(string mail)
-    {
-        _mail = mail;
-    }
-    public void UpdatePassword(string pass)
-    {
-        _pass = pass;
-    }
-    public void CreateAccount()
-    {
-        PlayFabClientAPI.RegisterPlayFabUser(new RegisterPlayFabUserRequest
-        {
-            Username = _username,
-            Email = _mail,
-            Password = _pass,
-            RequireBothUsernameAndEmail = true
-        }, OnCreateSuccess, OnFailure);
-    }
-    public void SignIn()
-    {
-        PlayFabClientAPI.LoginWithPlayFab(new LoginWithPlayFabRequest
-        {
-            Username = _username,
-            Password = _pass
-        }, OnSignInSuccess, OnFailure);
-    }
-
-    public void Back()
-    {
-        _createErrorLabel.text = "";
-        _signInErrorLabel.text = "";
-    }
-    private void OnCreateSuccess(RegisterPlayFabUserResult result)
-    {
-        Debug.Log($"Creation Success: {_username}");
-    }
     private void OnSignInSuccess(LoginResult result)
     {
-        Debug.Log($"Sign In Success: {_username}");
+        Debug.Log("Sign In Success");
         SetUserData(result.PlayFabId);
+        //MakePurchase();
+        GetInventory();
+    }
+    private void GetInventory()
+    {
+        PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), result => ShowInventory(result.Inventory), OnFailure);
     }
 
+    private void ShowInventory(List<ItemInstance> inventory)
+    {
+        var firstItem = inventory.First();
+        Debug.Log($"{firstItem.ItemId}");
+        ConsumePotion(firstItem.ItemInstanceId);
+    }
+
+    private void ConsumePotion(string itemInstanceId)
+    {
+        PlayFabClientAPI.ConsumeItem(new ConsumeItemRequest
+        {
+            ConsumeCount = 1,
+            ItemInstanceId = itemInstanceId
+        },
+        result =>
+        {
+            Debug.Log("Complete ConsumeItem");
+        }, OnFailure);
+    }
+
+    private void MakePurchase()
+    {
+        PlayFabClientAPI.PurchaseItem(new PurchaseItemRequest
+        {
+            CatalogVersion = "2.0",
+            ItemId = "Life potion",
+            Price = 50,
+            VirtualCurrency = "CC"
+        },
+        result =>
+        {
+            Debug.Log("Complete PurchaseItem");
+        }, OnFailure);
+    }
     private void SetUserData(string playFabId)
     {
         PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest
@@ -106,6 +99,7 @@ public class PlayFabLogin : MonoBehaviour
         {
             if (result.Data.ContainsKey(keyData))
                 Debug.Log($"{keyData}: {result.Data[keyData].Value}");
+
         }, OnFailure);
     }
 
@@ -113,8 +107,6 @@ public class PlayFabLogin : MonoBehaviour
     {
         var errorMessage = error.GenerateErrorReport();
         Debug.LogError($"Something went wrong: {errorMessage}");
-        _createErrorLabel.text = errorMessage;
-        _signInErrorLabel.text = errorMessage;
     }
 
 }
