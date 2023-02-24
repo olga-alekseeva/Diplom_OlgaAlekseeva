@@ -54,7 +54,7 @@ namespace Photon.Pun.Demo.PunBasics
 			// in case we started this demo with the wrong scene being active, simply load the menu scene
 			if (!PhotonNetwork.IsConnected)
 			{
-				SceneManager.LoadScene("PunBasics-Launcher");
+				SceneManager.LoadScene("ConnectToServer");
 
 				return;
 			}
@@ -70,7 +70,7 @@ namespace Photon.Pun.Demo.PunBasics
 				    Debug.LogFormat("We are Instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
 
 					// we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
-					PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f,5f,0f), Quaternion.identity, 0);
+					PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f,0f,0f), Quaternion.identity, 0);
 				}else{
 
 					Debug.LogFormat("Ignoring scene load for {0}", SceneManagerHelper.ActiveSceneName);
@@ -134,7 +134,7 @@ namespace Photon.Pun.Demo.PunBasics
 		/// </summary>
 		public override void OnLeftRoom()
 		{
-			SceneManager.LoadScene("PunBasics-Launcher");
+			SceneManager.LoadScene("Lobby");
 		}
 
 		#endregion
@@ -164,7 +164,7 @@ namespace Photon.Pun.Demo.PunBasics
 
 			Debug.LogFormat( "PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount );
 
-			PhotonNetwork.LoadLevel("PunBasics-Room for "+PhotonNetwork.CurrentRoom.PlayerCount);
+			PhotonNetwork.LoadLevel("Game");
 		}
 
 		#endregion
