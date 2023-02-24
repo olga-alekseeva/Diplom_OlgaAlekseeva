@@ -1,0 +1,125 @@
+{
+  "CatalogVersion": "2.0",
+  "Catalog": [
+    {
+      "ItemId": "Sword_01",
+      "ItemClass": "Weapon",
+      "CatalogVersion": "2.0",
+      "DisplayName": "Simple sword",
+      "Description": "Simple sword for fighting enemies",
+      "VirtualCurrencyPrices": {
+        "GD": 20
+      },
+      "RealCurrencyPrices": {},
+      "Tags": [],
+      "CustomData": "null",
+      "Consumable": {
+        "UsageCount": 5,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": true,
+      "ItemImageUrl": null
+    },
+    {
+      "ItemId": "Sword_02",
+      "ItemClass": "Weapon",
+      "CatalogVersion": "2.0",
+      "DisplayName": "Heavy sword",
+      "Description": "Heavy sword for crushing enemies",
+      "VirtualCurrencyPrices": {
+        "GD": 100
+      },
+      "RealCurrencyPrices": {},
+      "Tags": [],
+      "CustomData": "null",
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": true,
+      "ItemImageUrl": null
+    },
+    {
+      "ItemId": "Shield_01",
+      "ItemClass": "Armor",
+      "CatalogVersion": "2.0",
+      "DisplayName": "Simple shield",
+      "Description": "Simple shield to protect you, for a bit.",
+      "VirtualCurrencyPrices": {
+        "GD": 100
+      },
+      "RealCurrencyPrices": {},
+      "Tags": [],
+      "CustomData": "null",
+      "Consumable": {
+        "UsageCount": 2,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": true,
+      "ItemImageUrl": null
+    },
+    {
+      "ItemId": "Shield_02",
+      "ItemClass": "Armor",
+      "CatalogVersion": "2.0",
+      "DisplayName": "Heavy shield",
+      "Description": "Heave shield to protect you, for a lot.",
+      "VirtualCurrencyPrices": {
+        "GD": 100
+      },
+      "RealCurrencyPrices": {},
+      "Tags": [],
+      "CustomData": "null",
+      "Consumable": {
+        "UsageCount": 5,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": true,
+      "ItemImageUrl": null
+    },
+    {
+      "ItemId": "Life potion",
+      "ItemClass": "elixir",
+      "CatalogVersion": "2.0",
+      "DisplayName": "Life potion",
+      "Description": "A potion that will keep you alive, mortal",
+      "VirtualCurrencyPrices": {
+        "GD": 50
+      },
+      "RealCurrencyPrices": {},
+      "Tags": [],
+      "CustomData": "null",
+      "Consumable": {
+        "UsageCount": 4,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": true,
+      "ItemImageUrl": null
+    }
+  ]
+}
