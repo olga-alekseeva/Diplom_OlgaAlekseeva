@@ -33,7 +33,7 @@ public class PlayFabLogin : MonoBehaviour
         Debug.Log("Sign In Success");
         SetUserData(result.PlayFabId);
         //MakePurchase();
-        GetInventory();
+     //   GetInventory();
     }
     private void GetInventory()
     {
