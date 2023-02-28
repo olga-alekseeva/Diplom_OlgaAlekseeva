@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class SlotCharacterWidget : MonoBehaviour
 {
-    [SerializeField] private Button _button;
+    [SerializeField] private Button _createChar;
     [SerializeField] private GameObject _emptySlot;
     [SerializeField] private GameObject _infoCharacterSlot;
 
@@ -14,7 +14,7 @@ public class SlotCharacterWidget : MonoBehaviour
     [SerializeField] private TMP_Text _levelLabel;
     [SerializeField] private TMP_Text _goldLabel;
 
-    public Button SlotButton => _button;
+    public Button SlotButton => _createChar;
     public void ShowInfoCharacterSlot(string name, string level, string gold)
     {
         _nameLabel.text = name;
