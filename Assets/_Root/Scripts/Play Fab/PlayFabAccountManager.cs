@@ -51,7 +51,10 @@ using UnityEngine.UI;
             CharacterStatistics = new Dictionary<string, int>
             {
                 {"Level", 1 },
-                {"Gold", 0 }
+                {"Gold", 0 },
+                {"health", 10 },
+                {"damage", 10 },
+                {"exp", 10 }
             }
         }, result =>
         {
@@ -102,8 +105,16 @@ using UnityEngine.UI;
             {
                 var level = result.CharacterStatistics["Level"].ToString();
                 var gold = result.CharacterStatistics["Gold"].ToString();
+                var health = result.CharacterStatistics["health"].ToString();
+                var experience = result.CharacterStatistics["experience"].ToString();
+                var damage = result.CharacterStatistics["damage"].ToString();
 
-                _slots.First().ShowInfoCharacterSlot(characters.First().CharacterName, level, gold);
+
+
+
+
+
+                _slots.First().ShowInfoCharacterSlot(characters.First().CharacterName, level, gold, health,experience,damage);
 
             }, OnFailure);
         }
